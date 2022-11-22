@@ -1,0 +1,37 @@
+{
+    "name": "",
+    "poster": "/favicon.ico",
+    "actors": [
+        {
+            "name": "",
+            "role": "导演",
+            "avatarAddress": "/favicon.ico"
+        },
+        {
+            "name": "",
+            "role": "演员",
+            "avatarAddress": "/favicon.ico"
+        }
+    ],
+    "director": "",
+    "category": "",
+    "synopsis": "",
+    "filmType": {
+        "name": "2D",
+        "value": 1
+    },
+    "nation": "",
+    "language": "",
+    "premiereAt": 0,
+    "runtime": 0,
+    "photos": [
+        "/favicon.ico"
+    ],
+    "grade": "0",
+    "item": {
+        "name": "2D",
+        "type": 1
+    },
+    "isPresale": false,
+    "isSale": false
+}

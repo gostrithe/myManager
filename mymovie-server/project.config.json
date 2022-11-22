@@ -1,0 +1,64 @@
+{
+    "dbName": "mydb",
+    "port": 8002,
+    "jwtSecret": "jinwandalaohu",
+    "tokenAge": "3600s",
+    "routes": [
+        {
+            "name": "film",
+            "middlewares": {
+                "create": [],
+                "createMany": [],
+                "retrieve": [],
+                "retrieveMany": [],
+                "update": [],
+                "delete": []
+            }
+        },
+        {
+            "name": "preview",
+            "middlewares": {
+                "create": [],
+                "createMany": [],
+                "retrieve": [],
+                "retrieveMany": [],
+                "update": [],
+                "delete": []
+            }
+        },
+        {
+            "name": "city",
+            "middlewares": {
+                "create": [
+                    "adminCheck"
+                ],
+                "createMany": [
+                    "adminCheck"
+                ],
+                "retrieve": [
+                    "loginCheck"
+                ],
+                "retrieveMany": [
+                    "loginCheck"
+                ],
+                "update": [
+                    "adminCheck"
+                ],
+                "delete": [
+                    "adminCheck"
+                ]
+            }
+        },
+        {
+            "name": "user",
+            "middlewares": {
+                "create": [],
+                "createMany": [],
+                "retrieve": [],
+                "retrieveMany": [],
+                "update": [],
+                "delete": []
+            }
+        }
+    ]
+}
