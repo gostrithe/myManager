@@ -1,3 +1,5 @@
+const { Buffer } = require('buffer')  // jack's code
+
 // 引入express
 const express = require("express")
 const multer = require("multer")
@@ -18,7 +20,13 @@ const app = express()
 app.use(express.json())
 app.use(express.urlencoded({extended:false}))
 app.use(express.static(path.resolve("public")))
-app.use(multer({dest:path.resolve("temp")}).array("file"))
+
+// jack's code 解决上传中文名乱码导致前端请求404 加上文件过滤
+app.use(multer({dest:path.resolve("temp"), fileFilter(req, file, callback) {
+    // 解决中文名乱码
+    file.originalname = Buffer.from(file.originalname, 'latin1').toString('utf8');
+    callback(null, true);  // 这callback要写，否则无法上传
+}}).array("file"))
 
 /* 派发请求给路由器【中间件】 */
 app.use("/user",userRouter)

@@ -33,7 +33,7 @@ export default defineConfig({
 
     proxy: {
       "/api": {
-        target: "http://localhost:8002", //API服务地址
+        target: "http://localhost:7777", //API服务地址
         changeOrigin: true, //开启跨域
         rewrite: (path) => path.replace(/^\/api/, ""),
       },

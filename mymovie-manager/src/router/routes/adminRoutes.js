@@ -1,23 +1,23 @@
-import CinemaList from "@views/CinemaList.vue";
-import CityList from "@views/CityList.vue";
 
 const adminRoutes = [
   /* cinema */
   {
-    path: "/cinema",
-    name: "cinema",
-    meta: { adminRequired: true },
-    component: () => import("@views/CinemaList.vue"),
-    // component: CinemaList,
-  },
-
-  /* city */
-  {
-    path: "/city",
-    name: "city",
-    meta: { adminRequired: true },
-    component: () => import("@views/CityList.vue"),
-    // component: CityList,
+    path: '/film/nowPlaying',
+    name: 'nowPlaying',
+    meta: { loginRequired: true, adminRequired: true },
+    component: () => import('../../views/film/nowPlaying.vue'),
+    children: [
+      {
+        path: '/film/:id([a-z\\d]{24})',
+        name: 'detail',
+        component: () => import('../../views/film/detail.vue')
+      },
+      {
+        path: '/film/add',
+        name: 'addFiml',
+        component: () => import('../../views/film/detail.vue')
+      }
+    ]
   },
 ];
 

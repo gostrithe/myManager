@@ -1,61 +1,54 @@
-import { createRouter, createWebHistory } from "vue-router";
-import store from "../store";
-
+import { createRouter, createWebHistory, useRoute } from 'vue-router';
+import dataBoard from '../views/dataBoard.vue';
+import store from "@store/index";
 import adminRoutes from "./routes/adminRoutes";
-import publicRoutes from "./routes/publicRoutes";
-import { inRoutes } from "./routerTool";
-import { page404 } from "./routes/errRoutes";
-
-// import DataWatch from "../views/DataWatch.vue";
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
-  routes: [
-    ...publicRoutes,
-    // ...adminRoutes,
-  ],
+    history: createWebHistory(),
+
+    routes: [
+        {
+            path: '/',
+            name: 'dataBoard',
+            meta: { loginRequired: true },
+            component: dataBoard
+        },
+        {
+            path: '/film/comings',
+            name: 'comings',
+            meta: { loginRequired: true },
+            component: () => import('../views/film/comings.vue')
+        },
+        {
+            path: '/login',
+            name: 'login',
+            component: () => import('../views/login.vue')
+        },
+        {
+            path: '/:pm(.*)*',
+            name: 'notfound',
+            meta: { loginRequired: true },
+            component: () => import("@views/notfound.vue")
+        }
+    ]
 });
 
-router.addRoute(
-  /* 404 */
-  {
-    path: "/:pm(.*)*",
-    name: "404",
-    component: () => import("@views/NotFound.vue"),
-  }
-);
 
 router.beforeEach((to, from, next) => {
-  // console.log("to", to);
-  // console.log("from", from);
-
-  /* 公共路由直接放行 */
-  if (inRoutes(to, publicRoutes)) {
-    // console.log("isPublicRoute");
-    next();
-    return;
-  }
-
-  /* 检查是否adminRoutes */
-  let arRoute = store.getters.adminRequired(to);
-  if (arRoute) {
-    console.log("arRoute", arRoute);
-    if (store.getters.isAdmin) {
-      console.log("isAdmin");
-
-      router.addRoute(arRoute)
-      next()
+    if (!to.meta.loginRequired) {
+        next();
     } else {
-      console.log("is NOT Admin");
-      next({ path: "/login" });
+        if (store.state.user) {
+            if (store.state.user.admin) {
+                adminRoutes.forEach(route => {
+                    !router.hasRoute(route.name) && router.addRoute(route) && localStorage.setItem('adminRoutesAdd', 'true');
+                });   
+            }
+            next();
+        } else {
+            next('/login');
+        }
     }
-    return;
-  }
-
-  /* 默认去首页 */
-  console.log("404");
-  next();
-
 });
 
 export default router;

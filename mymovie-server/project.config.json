@@ -1,6 +1,6 @@
 {
     "dbName": "mydb",
-    "port": 8002,
+    "port": 7777,
     "jwtSecret": "jinwandalaohu",
     "tokenAge": "3600s",
     "routes": [

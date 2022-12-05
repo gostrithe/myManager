@@ -1,0 +1,39 @@
+[
+    {
+        "name":"数据看板",
+        "path":"/",
+        "iconName": "Document"
+    },
+    {
+        "name":"影片管理",
+        "iconName": "Menu",
+        "submenu":[
+            {
+                "name":"正在热映",
+                "path":"/film/nowPlaying"
+            }
+        ]
+    },
+    {
+        "name": "kunkun",
+        "submenu":[
+            {
+                "name":"唱"
+            },
+            {
+                "name":"跳"
+            },
+            {
+                "name":"rap"
+            },
+            {
+                "name":"篮球",
+                "submenu":[
+                    {
+                        "name":"铁山靠"
+                    }
+                ]
+            }
+        ]
+    }
+]

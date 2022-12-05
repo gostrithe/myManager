@@ -1,4 +1,5 @@
 import axios from "axios";
+import store from "@store/index";
 
 // import { useRouter } from "vue-router";
 // const router = useRouter()
@@ -21,7 +22,9 @@ const instance = axios.create({
 instance.interceptors.request.use(
   function (config) {
     // 在发送请求之前做些什么
-    config.headers["Authorization"] = `Bearer tokenvalue`;
+    if (store.state.token !== '') {
+      config.headers["Authorization"] = `Bearer ${store.state.token}`;
+    }
     return config;
   },
 
@@ -35,16 +38,15 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
   function (res) {
     // console.log("res in interceptors.response", res);
-    // if (response.data.code === 401 || response.data.code === 403) {
-    //   window.location.assign("/login")
-    //   return
-    // }
+    if (res.data.code === 401 || res.data.code === 403) {
+      window.location.assign("/login")
+      return
+    }
 
     return res.data;
   },
 
   function (error) {
-    console.log("err in interceptors.response", error);
     if (error.response.status === 401 || error.response.status === 403) {
       window.location.assign("/login")
       return;
